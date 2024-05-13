@@ -4,7 +4,7 @@ from pygame.transform import scale, rotate
 from pygame.surface import Surface
 from pygame.math import Vector2
 from pygame.mask import from_surface
-from src.vector import Vector2
+from vector import Vector2
 
 class GameObject(Sprite):
     def __init__(
@@ -66,6 +66,13 @@ class GameObject(Sprite):
                 self.position.x > bounds[2] or
                 self.position.y > bounds[3])
 
+    def update(self):
+        self.velocity = self.velocity + self.acceleration
+        self.position = self.position + self.velocity
+        self.angularVelocity = self.angularVelocity + self.angularAcceleration
+        self.angle = (self.angle + self.angularVelocity) % 360
 
+        self.rotate(self.angle)
+        self.setPosition()
 
     
